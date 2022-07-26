@@ -1,8 +1,10 @@
 package com.jsy.action;
 
+import com.jsy.SpringConfig.springConfiguration;
 import com.jsy.bean.Type;
 import com.jsy.biz.TypeBiz;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextListener;
@@ -19,8 +21,8 @@ import java.util.List;
 public class TypeServlet extends HttpServlet {
 
 
-    @Autowired
-    TypeBiz typeBiz;
+    AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(springConfiguration.class);
+    TypeBiz typeBiz = app.getBean(TypeBiz.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);

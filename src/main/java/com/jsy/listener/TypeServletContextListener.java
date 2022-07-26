@@ -1,7 +1,9 @@
 package com.jsy.listener;
 
+import com.jsy.SpringConfig.springConfiguration;
 import com.jsy.bean.Type;
 import com.jsy.biz.TypeBiz;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -13,7 +15,8 @@ import java.util.List;
 public class TypeServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        TypeBiz typeBiz = new TypeBiz();
+        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(springConfiguration.class);
+        TypeBiz typeBiz = app.getBean(TypeBiz.class);
         List<Type> typeList = typeBiz.getAll();
 
         ServletContext application = servletContextEvent.getServletContext();

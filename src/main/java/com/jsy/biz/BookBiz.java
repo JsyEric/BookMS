@@ -1,17 +1,21 @@
 package com.jsy.biz;
 
+import com.jsy.SpringConfig.springConfiguration;
 import com.jsy.bean.Book;
 import com.jsy.bean.Type;
 import com.jsy.dao.BookDao;
 import com.jsy.dao.RecordDao;
 import com.jsy.dao.TypeDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
-
+@Service
 public class BookBiz {
-    BookDao bookDao = new BookDao();
-
+    @Autowired
+    BookDao bookDao;
     public List<Book> getByTypeId(long typeId) throws SQLException {
         return bookDao.getByTypeId(typeId);
     }
@@ -36,7 +40,8 @@ public class BookBiz {
     }
 
     public int remove(long id) throws Exception {
-        RecordDao recordDao = new RecordDao();
+        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(springConfiguration.class);
+        RecordDao recordDao = app.getBean(RecordDao.class);
         int countBookId = recordDao.getByBookId(id);
         if(countBookId>0){
             throw new RuntimeException();
@@ -53,7 +58,8 @@ public class BookBiz {
     }
 
     public List<Book> getByPage(int pageIndex, int pageSize) throws SQLException {
-        TypeDao typeDao = new TypeDao();
+        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(springConfiguration.class);
+        TypeDao typeDao = app.getBean(TypeDao.class);
         List<Book> bookList = null;
         try {
             bookList = bookDao.getByPage(pageIndex,pageSize);
@@ -71,7 +77,8 @@ public class BookBiz {
 
     public Book getById(long id) throws SQLException {
         Book book = null;
-        TypeDao typeDao = new TypeDao();
+        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(springConfiguration.class);
+        TypeDao typeDao = app.getBean(TypeDao.class);
         try {
             book = bookDao.getById(id);
             long typeId = book.getTypeId();
@@ -93,5 +100,11 @@ public class BookBiz {
             throw new RuntimeException(e);
         }
         return pageCount;
+    }
+
+    public static void main(String[] args) throws Exception {
+        AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(springConfiguration.class);
+        BookBiz bookBiz = app.getBean(BookBiz.class);
+        System.out.println(bookBiz.getByPage(2,3));
     }
 }

@@ -53,7 +53,7 @@ public class BookDao {
     public List<Book> getByPage(int pageIndex, int pageSize) throws SQLException {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         BookInt bookInt = sqlSession.getMapper(BookInt.class);
-        List<Book> bookList = bookInt.getByPage(pageIndex,pageSize);
+        List<Book> bookList = bookInt.getByPage((pageIndex-1)*pageSize,pageSize);
         sqlSession.commit();
         sqlSession.close();
         return bookList;

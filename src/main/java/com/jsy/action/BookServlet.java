@@ -1,5 +1,6 @@
 package com.jsy.action;
 
+import com.jsy.SpringConfig.springConfiguration;
 import com.jsy.bean.Book;
 import com.jsy.biz.BookBiz;
 import com.jsy.util.DateHelper;
@@ -7,6 +8,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,7 +26,8 @@ import java.util.List;
 
 @WebServlet("/book.let")
 public class BookServlet extends HttpServlet {
-    BookBiz bookBiz = new BookBiz();
+    AnnotationConfigApplicationContext app = new AnnotationConfigApplicationContext(springConfiguration.class);
+    BookBiz bookBiz = app.getBean(BookBiz.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
