@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsy.dao.TypeInt">
+    <insert id="add">
+        INSERT INTO type VALUES (null, #{name}, #{parentId})
+    </insert>
+
+    <select id="getAll" resultType="com.jsy.bean.Type">
+        select * from type
+    </select>
+
+    <select id="getById" resultType="com.jsy.bean.Type" parameterType="long">
+        select * from type where id = #{typeId}
+    </select>
+
+    <update id="modify">
+        update type set name = #{param1}, parentId = #{param2} where id = #{param3}
+    </update>
+
+    <delete id="remove" parameterType="long">
+        delete from type where id = #{id}
+    </delete>
+
+</mapper>
+    
+ 

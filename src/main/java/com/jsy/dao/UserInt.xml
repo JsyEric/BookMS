@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsy.dao.UserInt">
+    <insert id = "addUser" parameterType="com.jsy.bean.User">
+        insert into user(name,pwd,state) values (#{name},#{pwd},#{state})
+    </insert>
+
+    <select id = "getUser" resultType="com.jsy.bean.User">
+        select * from user where name = #{name} and pwd = #{pwd} and state = 1
+    </select>
+
+    <select id = "getAll" resultType="com.jsy.bean.User">
+        select * from user
+    </select>
+
+    <update id = "setUserPwd">
+        update user set pwd = #{pwd} where name = #{name};
+    </update>
+</mapper>
+    
+ 
