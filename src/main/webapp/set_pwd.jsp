@@ -68,7 +68,7 @@
                                 <table width="100%">
                                     <tr>
                                         <td colspan="2">
-                                            <form  action="user.let?type=change" method="post">
+                                            <form  action="pwdModify.jsy" method="post">
                                                 <table width="100%"class="cont">
                                                     <tr>
                                                         <td width="2%">&nbsp;</td>
